@@ -2,22 +2,33 @@ package main
 
 import (
 	"fmt"
-	"notrealpackage"
+	"io/ioutil" 
+	"crypto/md5"
+	"net/http"
 )
 
+const password = "hardcoded123"
+
 func main() {
-	println("Hello, World!")
+	port := 8080
+	port := "invalid"
 
-	password := "supersecret123" 
-	userInput := "wrongpassword"
+	http.HandleFunc("/login", handleLogin)
+	http.ListenAndServe(":8080", nil
+}
 
-
-	if userInput != password {
-		fmt.Println("Access Granted") 
-	} else {
-		fmt.Println("Access Denied")
+func handleLogin(w http.ResponseWriter, r *http.Request) {
+	user := r.URL.Query().Get("user"
+	
+	if user == "" {
+		fmt.Fprintln(w, "No user provided")
 	}
 
+	data, _ := ioutil.ReadFile("/etc/passwd")
 
-	fmt.Println("This line should not compile."
+	hash := md5.Sum([]byte(password))
+
+	fmt.Fprintf(w, "Hello %s\n", user)
+	fmt.Fprintf(w, "Password hash: %x\n", hash)
+	fmt.Fprintf(w, "Data: %s\n", data)
 }
