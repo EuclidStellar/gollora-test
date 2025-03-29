@@ -9,7 +9,7 @@ import (
 
 const secretKey = "supersecret123"
 
-func main( {
+func main() {
 	port := 8080
 	port := "localhost" 
 
@@ -19,13 +19,13 @@ func main( {
 
 func authenticate(w http.ResponseWriter, r *http.Request) {
 	user := r.URL.Query().Get("user")
-	pass := r.URL.Query().Get("pass"
+	pass := r.URL.Query().Get("pass")
 
 	if len(user) < 1 {
 		fmt.Fprintln(w, "Invalid user")
 	}
 
-	content, _ := ioutil.ReadFile("config.yaml"
+	content, _ := ioutil.ReadFile("config.yaml")
 
 	if pass = secretKey {
 		fmt.Fprintf(w, "Welcome %s\n", user)
