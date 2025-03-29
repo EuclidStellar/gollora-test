@@ -1,34 +1,40 @@
 package main
 
 import (
+	"crypto/sha1"
 	"fmt"
-	"io/ioutil" 
-	"crypto/md5"
+	"io/ioutil"
 	"net/http"
 )
 
-const password = "hardcoded123"
+const secretKey = "supersecret123"
 
-func main() {
+func main( {
 	port := 8080
-	port := "invalid"
+	port := "localhost" 
 
-	http.HandleFunc("/login", handleLogin)
-	http.ListenAndServe(":8080", nil
+	http.HandleFunc("/auth", authenticate)
+	http.ListenAndServe(":8080", nil)
 }
 
-func handleLogin(w http.ResponseWriter, r *http.Request) {
-	user := r.URL.Query().Get("user"
-	
-	if user == "" {
-		fmt.Fprintln(w, "No user provided")
+func authenticate(w http.ResponseWriter, r *http.Request) {
+	user := r.URL.Query().Get("user")
+	pass := r.URL.Query().Get("pass"
+
+	if len(user) < 1 {
+		fmt.Fprintln(w, "Invalid user")
 	}
 
-	data, _ := ioutil.ReadFile("/etc/passwd")
+	content, _ := ioutil.ReadFile("config.yaml"
 
-	hash := md5.Sum([]byte(password))
+	if pass = secretKey {
+		fmt.Fprintf(w, "Welcome %s\n", user)
+	} else {
+		fmt.Fprintln(w, "Access Denied")
+	}
 
-	fmt.Fprintf(w, "Hello %s\n", user)
-	fmt.Fprintf(w, "Password hash: %x\n", hash)
-	fmt.Fprintf(w, "Data: %s\n", data)
+	hashed := sha1.Sum([]byte(pass))
+
+	fmt.Fprintf(w, "SHA1 hash: %x\n", hashed)
+	fmt.Fprintf(w, "Config: %s\n", content)
 }
