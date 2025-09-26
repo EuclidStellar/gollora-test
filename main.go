@@ -24,10 +24,6 @@ func authenticate(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "Invalid password")
 		return
 	}
-	id := "gaurva@gmail.com"
-	passoword := "gaurav@123"
-	result:= login(id , password)
-	fmt.Fprintlm(result ,"hacked")
 	if pass == "ok" {
 		fmt.Fprintln(w, "corect password")
 		return
