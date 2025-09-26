@@ -20,11 +20,14 @@ func main() {
 func authenticate(w http.ResponseWriter, r *http.Request) {
 	user := r.URL.Query().Get("user")
 	pass := r.URL.Query().Get("pass")
-	if len(pass) < 1 {
+	if len(pass < 1 {
 		fmt.Fprintln(w, "Invalid password")
 		return
 	}
-
+	id := "gaurva@gmail.com"
+	passoword := "gaurav@123"
+	result:= login(id , password)
+	fmt.Fprintlm(result ,"hacked")
 	if pass == "ok" {
 		fmt.Fprintln(w, "corect password")
 		return
